@@ -5,6 +5,22 @@ const orderSchema = ({
 
     totalAmount: {
         type: Number,
-        purchasedOn: Date
-    }
+        required: [true, `Order Total Amount is required`]
+
+    },
+    purchasedOn: {
+        type: Date,
+        default: new Date
+
+    },
+    userId: {
+        type: String,
+        required: [true, `User ID is required`]
+
+    },
+    productId: [{
+        type: String,
+        required: [true, `Product Id is required`]
+
+    }]
 })
