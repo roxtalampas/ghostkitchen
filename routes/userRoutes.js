@@ -6,13 +6,16 @@ const {
     register,
     checkEmail,
     login,
-    adminStatus
+    adminStatus,
+    createOrder,
+    getAllOrders,
+    getMyOrders
 
 } = require('../controllers/userControllers');
 
 
 // IMPORTS UNIT OF FUNCTIONS FROM AUTH MODULE
-const {verify, verifyAdmin} = require('../auth');
+const {verifyAdmin, verifyUser, decode} = require('../auth');
 
 
 // REGISTER A USER
@@ -74,6 +77,51 @@ router.put('/:userId/setAsAdmin', verifyAdmin, async (req, res) => {
 
     }
 })
+
+
+// CREATE ORDER
+router.post('/checkout', verifyUser, async (req, res) => {
+
+    try{
+        await createOrder(req.body).then(result =>res.send(result))
+
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+
+// GET ALL ORDERS
+router.get('/orders', verifyAdmin, async (req, res) => {
+
+    try{
+        await getAllOrders().then(result => res.send(result))
+
+    }catch(err){
+        res.status(500).json(err)
+
+    }
+})
+
+
+
+// GET USER'S ORDERS
+router.get('/myOrders', verifyUser, async (req, res) => {
+
+    const userId = decode(req.headers.authorization).id
+    // console.log(userId)
+
+
+    try{
+        await getMyOrders(userId).then(result => res.send(result))
+
+    }catch(err){
+        res.status(500).json(err)
+
+    }
+})
+
+
 
 
 

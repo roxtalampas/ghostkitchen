@@ -5,12 +5,12 @@ const orderSchema = ({
 
     totalAmount: {
         type: Number,
-        required: [true, `Order Total Amount is required`]
+        required: true
 
     },
     purchasedOn: {
         type: Date,
-        default: new Date
+        default: Date.now
 
     },
     userId: {
@@ -18,9 +18,19 @@ const orderSchema = ({
         required: [true, `User ID is required`]
 
     },
-    productId: [{
-        type: String,
-        required: [true, `Product Id is required`]
-
-    }]
+    products: [
+        {
+            productId:{    
+                type: String,
+                required: [true, `Product Id is required`]
+            },
+            quantity: {
+                type: Number,
+                default: 1
+            }
+        }
+    ]
 })
+
+
+module.exports = mongoose.model(`Order`, orderSchema);

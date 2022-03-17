@@ -96,7 +96,7 @@ module.exports.verifyAdmin = (req, res, next) => {
             }
             else {
                 res.status(403).send(`You are not authorized.`)
-    
+
             }
 
         }
@@ -108,4 +108,43 @@ module.exports.verifyAdmin = (req, res, next) => {
 
 
 
+// USER ACCESS ONLY
+module.exports.verifyUser = (req, res, next) => {
+
+    const requestToken = req.headers.authorization
+
+
+    if (typeof requestToken == "undefined") {
+        res.status(401).send({ message: `Token Missing` })
+
+    }
+    else {
+
+        const token = requestToken.split(" ")[1];
+        // console.log(token)
+
+        if (typeof requestToken !== "undefined") {
+
+            const admin = jwt.decode(token).isAdmin
+
+            if (admin == false) {
+                jwt.verify(token, process.env.SECRET_PASS, (err) => {
+
+                    if (err) {
+                        return res.send({ message: `Auth Failed`})
+                    }
+                    else {
+                        next()
+                    }
+                })
+            }
+            else {
+                res.status(403).send(`Only users can create an order`)
+
+            }
+
+        }
+
+    }
+}
 
