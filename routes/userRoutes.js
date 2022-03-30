@@ -3,9 +3,11 @@ const router = express.Router();
 
 // IMPORTS UNIT OF FUNCTIONS FROM USER CONTROLLER MODULE
 const {
+    getAllUsers,
     register,
     checkEmail,
     login,
+    profile,
     adminStatus,
     createOrder,
     getAllOrders,
@@ -15,7 +17,19 @@ const {
 
 
 // IMPORTS UNIT OF FUNCTIONS FROM AUTH MODULE
-const {verifyAdmin, verifyUser, decode} = require('../auth');
+const {verifyAdmin, verifyUser, verify, decode} = require('../auth');
+
+
+//GET ALL USERS
+router.get('/', async (req, res) => {
+
+	try{
+		await getAllUsers().then(result => res.send(result))
+
+	}catch(err){
+		return res.status(500).json(err)
+	}
+})
 
 
 // REGISTER A USER
@@ -59,6 +73,21 @@ router.post('/login', async (req, res) => {
 
     }
 
+})
+
+// RETRIEVE USER INFORMATION
+router.get('/profile', verify, async (req, res) => {
+
+    // console.log(req.headers.authorization)
+	const userId = decode(req.headers.authorization).id
+	// console.log(userId)
+
+	try{
+		profile(userId).then(result => res.send(result))
+
+	}catch(err){
+		res.status(500).json(err)
+	}
 })
 
 

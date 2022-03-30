@@ -7,6 +7,13 @@ const CryptoJS = require('crypto-js');
 const { createToken } = require('../auth');
 
 
+
+// GET ALL USERS
+module.exports.getAllUsers = async () => {
+	return await User.find().then(result => result)
+}
+
+
 // REGISTER A USER
 module.exports.register = async (reqBody) => {
 
@@ -34,7 +41,6 @@ module.exports.register = async (reqBody) => {
     })
 
 }
-
 
 
 // CHECK IF EMAIL EXISTS
@@ -89,6 +95,25 @@ module.exports.login = async (reqBody) => {
             }
         }
     })
+}
+
+// RETRIEVE USER INFORMATION
+module.exports.profile = async (id) => {
+
+	return await User.findById(id).then((result, err) => {
+
+		if (result) {
+			return result
+		}
+		else {
+			if (result == null) {
+				return { message: `user does not exists` }
+			} else {
+				return err
+			}
+		}
+
+	})
 }
 
 

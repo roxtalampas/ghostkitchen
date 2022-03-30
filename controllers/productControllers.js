@@ -51,6 +51,15 @@ module.exports.getAProduct = async (productId) => {
 }
 
 
+
+//GET ACTIVE PRODUCTS
+module.exports.activeProducts = async () => {
+
+    return await Product.find({isActive: true}).then(result => result)
+    
+}
+
+
 // UPDATE A SPECIFIC PRODUCT
 module.exports.updateProduct = async (productId, reqBody) => {
 
@@ -65,3 +74,36 @@ module.exports.archiveProduct = async (productId) => {
     return await Product.findByIdAndUpdate(productId, {$set: {isActive: false}}, {new:true}).then(result => result)
 
 }
+
+
+// UNARCHIVE A PRODUCT
+module.exports.unArchiveProduct = async (productId) => {
+
+    return await Product.findByIdAndUpdate(productId, {$set: {isActive: true}}, {new:true}).then(result => result)
+
+}
+
+
+
+// DELETE A COURSE
+module.exports.deleteProduct = async (productId) => {
+
+    
+    return await Product.findByIdAndDelete(productId).then((result, err) => result ? true : err)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
