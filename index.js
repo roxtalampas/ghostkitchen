@@ -10,6 +10,7 @@ const app = express();
 // CONNECT ROUTES MODULE
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
 
@@ -37,6 +38,7 @@ db.once('open', () => console.log(`Connected to Database`));
     // create a middleware to be the URL of all routes
 app.use(`/api/users`, userRoutes);
 app.use(`/api/products`, productRoutes);
+// app.use(`/api/carts`, cartRoutes);
 // app.use(`/api/orders`, orderRoutes);
 
 

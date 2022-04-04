@@ -97,6 +97,7 @@ module.exports.login = async (reqBody) => {
     })
 }
 
+
 // RETRIEVE USER INFORMATION
 module.exports.profile = async (id) => {
 
@@ -123,6 +124,8 @@ module.exports.adminStatus = async (userId) => {
     return await User.findByIdAndUpdate(userId, { $set: { isAdmin: true } }, { new: true }).then((result, err) => result ? true : err)
 
 }
+
+
 
 
 // CREATE AN ORDER

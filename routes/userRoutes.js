@@ -9,6 +9,7 @@ const {
     login,
     profile,
     adminStatus,
+    addToCart,
     createOrder,
     getAllOrders,
     getMyOrders
@@ -106,6 +107,8 @@ router.put('/:userId/setAsAdmin', verifyAdmin, async (req, res) => {
 
     }
 })
+
+
 
 
 // CREATE ORDER
