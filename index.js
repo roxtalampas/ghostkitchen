@@ -8,10 +8,10 @@ const app = express();
 
 
 // CONNECT ROUTES MODULE
-const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes');
-const cartRoutes = require('./routes/cartRoutes');
-const orderRoutes = require('./routes/orderRoutes');
+const userRoutes = require('../Capstone-2/routes/userRoutes.js');
+const productRoutes = require('../Capstone-2/routes/productRoutes.js');
+const cartRoutes = require('../Capstone-2/routes/cartRoutes.js');
+const orderRoutes = require('../Capstone-2/routes/orderRoutes.js');
 
 
 // MIDDLEWARE TO HANDLE JSON PAYLOADS
